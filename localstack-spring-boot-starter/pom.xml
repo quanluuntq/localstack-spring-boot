@@ -43,7 +43,7 @@
         </license>
     </licenses>
 
-    <distributionManagement>
+<!--    <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -51,6 +51,17 @@
         <repository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>-->
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>smartup-snapshot-local</id>
+            <url>https://smartup.jfrog.io/smartup/libs-snapshot-local</url>
+        </snapshotRepository>
+        <repository>
+            <id>smartup-release-local</id>
+            <url>https://smartup.jfrog.io/smartup/libs-release-local</url>
         </repository>
     </distributionManagement>
 
