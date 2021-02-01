@@ -78,8 +78,17 @@ workflows:
       - checkout_code:
           filters:
             branches:
-              ignore: /(develop|master)/
+              ignore: /(circleci-project-setup|develop|master)/
       - build:
           context: org-global
+          requires:
+            - checkout_code
+  develop_workflow:
+    jobs:
+      - checkout_code:
+          filters:
+            branches:
+              only: /(circleci-project-setup|develop)$/
+      - deploy_pom_develop:
           requires:
             - checkout_code
