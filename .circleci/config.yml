@@ -71,6 +71,37 @@ jobs:
             - ~/.m2
           key: m2
 
+  deploy_pom_master:
+    docker:
+      - image: circleci/openjdk:8
+        cmd: ["/bin/bash"]
+
+    working_directory: ~/repo
+    environment:
+      JAVA_OPTIONS: "-Xms512m -Xmx1g -XX:ParallelGCThreads=2 -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -XX:AdaptiveSizePolicyWeight=90"
+      MAVEN_OPTS: "-Xms384m -Xmx512m -XX:ParallelGCThreads=2 -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -XX:AdaptiveSizePolicyWeight=90"
+
+    steps:
+      - attach_workspace:
+          at: ~/
+
+      - restore_cache:
+          keys:
+            - m2
+
+      - run:
+          name: Deploy RELEASE JAR to Artifactory
+          command: |
+            mvn -B deploy --settings settings.xml
+            git config --global user.email "devops@smartup.io"
+            git config --global user.name "CircleCI"
+            mvn scm:tag -Dtag='${project.version}'
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: m2
+
 workflows:
   version: 2
   pull_request_workflow:
@@ -83,6 +114,7 @@ workflows:
           context: org-global
           requires:
             - checkout_code
+
   develop_workflow:
     jobs:
       - checkout_code:
@@ -90,5 +122,15 @@ workflows:
             branches:
               only: /(circleci-project-setup|develop)$/
       - deploy_pom_develop:
+          requires:
+            - checkout_code
+
+  master_workflow:
+    jobs:
+      - checkout_code:
+          filters:
+            branches:
+              only: /^master$/
+      - deploy_pom_master:
           requires:
             - checkout_code
