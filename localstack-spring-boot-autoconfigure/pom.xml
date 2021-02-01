@@ -20,7 +20,7 @@
     <description>Spring Boot AutoConfiguration for using AtlassianLabs' Localstack</description>
     <url>https://github.com/smartupio/localtack-spring-boot</url>
 
-    <developers>
+    <!--<developers>
         <developer>
             <id>matelang</id>
             <name>Mate Lang</name>
@@ -34,7 +34,7 @@
             <email>adrian@smartup.io</email>
             <url>https://www.smartup.io</url>
         </developer>
-    </developers>
+    </developers>-->
 
     <licenses>
         <license>
@@ -43,14 +43,24 @@
         </license>
     </licenses>
 
+<!--    <distributionManagement>-->
+<!--        <snapshotRepository>-->
+<!--            <id>ossrh</id>-->
+<!--            <url>https://oss.sonatype.org/content/repositories/snapshots</url>-->
+<!--        </snapshotRepository>-->
+<!--        <repository>-->
+<!--            <id>ossrh</id>-->
+<!--            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+<!--        </repository>-->
+<!--    </distributionManagement>-->
     <distributionManagement>
         <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>smartup-snapshot-local</id>
+            <url>https://smartup.jfrog.io/smartup/libs-snapshot-local</url>
         </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>smartup-release-local</id>
+            <url>https://smartup.jfrog.io/smartup/libs-release-local</url>
         </repository>
     </distributionManagement>
 
